@@ -1,3 +1,3 @@
 # QT example
-1 Use webEngine instead of webkit
+1 Using webEngine instead of webkit
 
