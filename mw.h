@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QUrl>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 namespace Ui {
 class MainWindow;
 }
@@ -21,9 +23,14 @@ private slots:
     void chgText(QUrl);
 
     void on_lineEdit_returnPressed();
+    void httpFinished();
+    void httpReadyRead();
+    void updateDataReadProgress(qint64, qint64);
 
 private:
     Ui::MainWindow *ui;
+    QNetworkAccessManager *manager;
+    QNetworkReply *reply;
 };
 
 #endif // MW_H
