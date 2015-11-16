@@ -19,7 +19,10 @@ void MainWindow::on_pb1_clicked()
     this->ui->webView->load(QUrl(this->ui->lineEdit->text()));
 }
 void MainWindow::chgText(QUrl url){
-    this->ui->lineEdit->setText(url.toString());
+    QString utxt = url.toString();
+    if(utxt != "about:blank"){
+        this->ui->lineEdit->setText(url.toString());
+    }
 }
 
 void MainWindow::on_lineEdit_returnPressed()
