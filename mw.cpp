@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pb1_clicked()
 {
-    this->ui->webView->load(QUrl(this->ui->lineEdit->text()));
+    ui->webView->load(QUrl(ui->lineEdit->text()));
 }
 void MainWindow::chgText(QUrl url){
     QString utxt = url.toString();
@@ -28,7 +28,7 @@ void MainWindow::chgText(QUrl url){
 
 void MainWindow::on_lineEdit_returnPressed()
 {
-    this->ui->webView->load(QUrl(this->ui->lineEdit->text()));
+    ui->webView->load(QUrl(ui->lineEdit->text()));
 }
 
 
@@ -37,8 +37,6 @@ void MainWindow::startRequest(QUrl url)
     reply = manager->get(QNetworkRequest(url));
     connect(reply, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
 
-    connect(reply, SIGNAL(downloadProgress(qint64,qint64)),
-            this, SLOT(updateDataReadProgress(qint64,qint64)));
 
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
 }
@@ -49,15 +47,9 @@ void MainWindow::httpReadyRead()
 }
 
 
-void MainWindow::updateDataReadProgress(qint64 bytesRead, qint64 totalBytes)
-{
-    ui->progressBar->setMaximum(totalBytes);
-    ui->progressBar->setValue(bytesRead);
-}
 
 void MainWindow::httpFinished()
 {
-    ui->progressBar->hide();
     file->flush();
     file->close();
     reply->deleteLater();
@@ -68,7 +60,7 @@ void MainWindow::httpFinished()
 
 void MainWindow::on_pb1_2_clicked()
 {
-    url = ui->lineEdit->text();
+    QUrl url = ui->lineEdit->text();
     QFileInfo info(url.path());
     QString fileName(info.fileName());
     if (fileName.isEmpty()) fileName = "index.html";
@@ -81,6 +73,4 @@ void MainWindow::on_pb1_2_clicked()
         return;
     }
     startRequest(url);
-    ui->progressBar->setValue(0);
-    ui->progressBar->show();
 }
