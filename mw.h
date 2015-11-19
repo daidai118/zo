@@ -7,6 +7,8 @@
 #include <QNetworkReply>
 #include <QFile>
 #include <QFileInfo>
+#include <QTextCodec>
+#include <QDateTime>
 namespace Ui {
 class MainWindow;
 }

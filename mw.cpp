@@ -36,14 +36,15 @@ void MainWindow::startRequest(QUrl url)
 {
     reply = manager->get(QNetworkRequest(url));
     connect(reply, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
-
-
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
 }
 
 void MainWindow::httpReadyRead()
 {
-    reply->readAll();
+    QTextCodec *codec = QTextCodec::codecForName("Shift-JIS");
+
+    file&&file->write(codec->toUnicode(reply->readAll().data()).toLocal8Bit());
+
 }
 
 
@@ -63,7 +64,8 @@ void MainWindow::on_pb1_2_clicked()
     QUrl url = ui->lineEdit->text();
     QFileInfo info(url.path());
     QString fileName(info.fileName());
-    if (fileName.isEmpty()) fileName = "index.html";
+    QDateTime cc;
+    if (fileName.isEmpty()) fileName = cc.time().toString();
     file = new QFile(fileName);
     if(!file->open(QIODevice::WriteOnly))
     {
