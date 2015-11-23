@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mw.cpp
+        mw.cpp \
+    flashcart.cpp
 
-HEADERS  += mw.h
+HEADERS  += mw.h \
+    flashcart.h
 
 FORMS    += mw.ui
+CONFIG += c++11

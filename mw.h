@@ -8,7 +8,11 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTextCodec>
-#include <QDateTime>
+#include <QTime>
+#include <regex>
+typedef std::list<QString> SL;
+typedef std::match_results<std::wstring::const_iterator> wsmatch;
+
 namespace Ui {
 class MainWindow;
 }
