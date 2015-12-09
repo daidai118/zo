@@ -12,6 +12,7 @@
 #include <regex>
 #include <QString>
 #include <QMessageBox>
+#include <QByteArray>
 //typedef std::list<QString> SL;
 //typedef std::match_results<std::wstring::const_iterator> wsmatch;
 
@@ -45,6 +46,7 @@ private:
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
     QFile *file;
+    QByteArray *buf;
 };
 
 #endif // MW_H

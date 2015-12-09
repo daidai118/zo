@@ -84,7 +84,7 @@
         </size>
        </property>
        <property name="text">
-        <string>http://zozo.jp/category/suit/suit-jacket/</string>
+        <string>http://192.168.0.203/1.html</string>
        </property>
       </widget>
       <widget class="QPushButton" name="pb1">

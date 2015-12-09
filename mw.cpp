@@ -12,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete ui,buf;
 }
-
+//http://zozo.jp/category/suit/suit-jacket/
 void MainWindow::on_pb1_clicked()
 {
     ui->webView->load(QUrl(ui->lineEdit->text()));
@@ -34,6 +34,7 @@ void MainWindow::on_lineEdit_returnPressed()
 
 void MainWindow::startRequest(QUrl url)
 {
+    buf = new QByteArray("");
     reply = manager->get(QNetworkRequest(url));
     connect(reply, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
@@ -42,18 +43,17 @@ void MainWindow::startRequest(QUrl url)
 void MainWindow::httpReadyRead()
 {
     QTextCodec *codec = QTextCodec::codecForName("Shift-JIS");
-
-    file&&file->write(codec->toUnicode(reply->readAll().data()).toLocal8Bit());
+    auto bbf = codec->toUnicode(reply->readAll().data()).toUtf8();
+    buf->append(bbf);
+    file&&file->write(bbf);
 }
-
 
 
 void MainWindow::httpFinished()
 {
-    auto str = QString(file->readAll().data()).toStdString();
-    const std::regex pattern("nano･universe");
-    std:: match_results<std::string::const_iterator> result;
-    bool valid = std:: regex_match(str, result, pattern);
+    auto str = buf->toStdString();
+    const std::regex pattern("(その他)");
+    bool valid = std::regex_search(str, pattern);
     if (valid){
         QMessageBox::information(this,"1","c");
     }else{
@@ -64,8 +64,28 @@ void MainWindow::httpFinished()
     reply->deleteLater();
     reply = 0;
     delete file;
+    delete buf;
     file = 0;
 }
+//void MainWindow::httpFinished()
+//{
+//    auto str = buf->toStdString();
+//    const std::regex pattern("その他");
+//    std:: match_results<std::string::const_iterator> result;
+//    bool valid = std::regex_match(str, result, pattern);
+//    if (valid){
+//        QMessageBox::information(this,"1","c");
+//    }else{
+//        QMessageBox::information(this,"1","失败");
+//    }
+//    file->flush();
+//    file->close();
+//    reply->deleteLater();
+//    reply = 0;
+//    delete file;
+//    delete buf;
+//    file = 0;
+//}
 
 void MainWindow::on_pb1_2_clicked()
 {
@@ -84,3 +104,4 @@ void MainWindow::on_pb1_2_clicked()
     }
     startRequest(url);
 }
+
