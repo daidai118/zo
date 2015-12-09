@@ -10,8 +10,10 @@
 #include <QTextCodec>
 #include <QTime>
 #include <regex>
-typedef std::list<QString> SL;
-typedef std::match_results<std::wstring::const_iterator> wsmatch;
+#include <QString>
+#include <QMessageBox>
+//typedef std::list<QString> SL;
+//typedef std::match_results<std::wstring::const_iterator> wsmatch;
 
 namespace Ui {
 class MainWindow;

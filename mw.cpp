@@ -44,23 +44,21 @@ void MainWindow::httpReadyRead()
     QTextCodec *codec = QTextCodec::codecForName("Shift-JIS");
 
     file&&file->write(codec->toUnicode(reply->readAll().data()).toLocal8Bit());
-//    const std::regex ru("\\d+");
-//    wsmatch result;
-//    std::regex_match("123daa11",result,ru);
-    std::basic_string<char> context ="playjokes (playjokes@gmail.com)";
-
-        std::regex mail_regex("(\\w+)@(\\w+)\\.com");
-        std::wsmatch mail_result;
-
-        // 不能全词匹配 regex_match返回false
-        std::regex_match(*context, mail_result, mail_regex);
-    auto c=1;
 }
 
 
 
 void MainWindow::httpFinished()
 {
+    auto str = QString(file->readAll().data()).toStdString();
+    const std::regex pattern("nano･universe");
+    std:: match_results<std::string::const_iterator> result;
+    bool valid = std:: regex_match(str, result, pattern);
+    if (valid){
+        QMessageBox::information(this,"1","c");
+    }else{
+        QMessageBox::information(this,"1","失败");
+    }
     file->flush();
     file->close();
     reply->deleteLater();
@@ -77,7 +75,7 @@ void MainWindow::on_pb1_2_clicked()
     QTime *cc = new QTime();
     if (fileName.isEmpty()) fileName = cc->currentTime().toString("hhmmsszzz");
     file = new QFile(fileName);
-    if(!file->open(QIODevice::WriteOnly))
+    if(!file->open(QIODevice::ReadWrite))
     {
         qDebug() << "file open error";
         delete file;
