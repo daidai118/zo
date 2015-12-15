@@ -13,6 +13,7 @@
 #include <QString>
 #include <QMessageBox>
 #include <QByteArray>
+#include "download.h"
 //typedef std::list<QString> SL;
 //typedef std::match_results<std::wstring::const_iterator> wsmatch;
 
@@ -36,17 +37,13 @@ private slots:
     void chgText(QUrl);
 
     void on_lineEdit_returnPressed();
-    void httpFinished();
-    void httpReadyRead();
 
     void on_pb1_2_clicked();
     
 private:
     Ui::MainWindow *ui;
-    QNetworkAccessManager *manager;
-    QNetworkReply *reply;
-    QFile *file;
     QByteArray *buf;
+    download *down;
 };
 
 #endif // MW_H
