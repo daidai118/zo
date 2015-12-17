@@ -13,6 +13,8 @@
 #include <QString>
 #include <QMessageBox>
 #include <QByteArray>
+#include <QThread>
+#include <QTimer>
 #include "download.h"
 //typedef std::list<QString> SL;
 //typedef std::match_results<std::wstring::const_iterator> wsmatch;
@@ -30,6 +32,9 @@ public:
     ~MainWindow();
     void startRequest(QUrl url);
 
+    QThread downThread;
+    void init();
+
 public slots:
 
 private slots:
@@ -39,11 +44,18 @@ private slots:
     void on_lineEdit_returnPressed();
 
     void on_pb1_2_clicked();
+
     
+    void on_pb1_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     QByteArray *buf;
-    download *down;
+    download down;
+
+    QTimer *goodsTimer;
+    QUrl url;
+
 };
 
 #endif // MW_H

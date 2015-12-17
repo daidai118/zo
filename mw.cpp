@@ -13,8 +13,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete ui,buf;
+    delete ui;
 }
+void MainWindow::init(){
+    down.moveToThread(&downThread);
+    connect(&downThread, SIGNAL(finished()), &down, SLOT(deleteLater()));
+
+    downThread.start();
+
+}
+//http://app_api.fuhui.com/
 //http://zozo.jp/category/suit/suit-jacket/
 void MainWindow::on_pb1_clicked()
 {
@@ -35,9 +43,11 @@ void MainWindow::on_lineEdit_returnPressed()
 
 void MainWindow::startRequest(QUrl url)
 {
-    auto cc = down->down(url);
-    QMessageBox::information(this,"",cc);
+    down.setUrl(url);
+    down.start();
+    QMessageBox::information(this,"","开始");
 }
+
 
 
 void MainWindow::on_pb1_2_clicked()
@@ -46,3 +56,9 @@ void MainWindow::on_pb1_2_clicked()
     startRequest(url);
 }
 
+
+
+void MainWindow::on_pb1_3_clicked()
+{
+    down.stop();
+}
