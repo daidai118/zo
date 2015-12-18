@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    ui->webView->page()->networkAccessManager()->setCookieJar(network_cookie);
+//    QList<QNetworkCookie> cookies = network_cookie_.getCookies();
     connect(ui->webView,SIGNAL(urlChanged(QUrl)),this,SLOT(chgText(QUrl)));
 }
 

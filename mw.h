@@ -16,6 +16,7 @@
 #include <QThread>
 #include <QTimer>
 #include "download.h"
+#include "webdiycookie.h"
 //typedef std::list<QString> SL;
 //typedef std::match_results<std::wstring::const_iterator> wsmatch;
 
@@ -34,6 +35,7 @@ public:
 
     QThread downThread;
     void init();
+    WebDiyCookie *network_cookie;
 
 public slots:
 

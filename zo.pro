@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mw.cpp \
     flashcart.cpp \
-    download.cpp
+    download.cpp \
+    webdiycookie.cpp
 
 HEADERS  += mw.h \
     flashcart.h \
-    download.h
+    download.h \
+    webdiycookie.h
 
 FORMS    += mw.ui
 CONFIG += c++11
